@@ -119,6 +119,13 @@ export const fonts = [
 		normalWeight: 600,
 		lightWeight: 400,
 	},
+	{
+		name: 'Varela Round',
+		size: 0.8,
+		boldWeight: 600,
+		normalWeight: 400,
+		lightWeight: 300,
+	}
 ];
 export function getGoogleFontURL(fonts: string[]) {
 	return `https://fonts.googleapis.com/css2?display=swap&${new URLSearchParams(

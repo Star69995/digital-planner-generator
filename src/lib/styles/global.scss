@@ -32,7 +32,7 @@ html {
 	--panel-text-high: #000000; // text on the panel in an emphasized state - like hover or focus
 
 	--nav-bg: var(--fg-high); // background color of the main navbar
-
+	
 	--action: #5e5e5e; // default background color of actions - like buttons, links, etc
 	--action-low: #838383; // background color of disabled actions
 	--action-high: #3d3d3d; // background color of actions with focus/hover
@@ -259,6 +259,7 @@ html {
 			1
 		); // https://linear-easing-generator.netlify.app/?codeType=svg&code=M+0%2C0%0AC+0.05%2C+0%2C+0.133333%2C+0.06%2C+0.166666%2C+0.4%0AC+0.208333%2C+0.82%2C+0.25%2C+1%2C+1%2C+1&simplify=0.00124438508064516&round=3
 	}
+	--text-direction: ltr; // Add this line
 }
 
 body {
@@ -371,6 +372,7 @@ body {
 	min-height: 100vh;
 	text-rendering: optimizeSpeed;
 	line-height: 1.5;
+	direction: var(--text-direction);
 }
 
 /* A elements that don't have a class get default styles */

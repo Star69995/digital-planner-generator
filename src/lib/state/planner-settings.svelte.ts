@@ -133,6 +133,7 @@ export class PlannerSettings {
 		colorText = $state('#424242');
 		colorLines = $state('#e2e2e2');
 		colorDots = $state('#454545');
+		textDirection = $state('ltr');
 	})();
 
 	/** Settings for changing the dates of the planner (like start & end dates) */
@@ -161,6 +162,7 @@ export class PlannerSettings {
 	readonly topNav = new (class TopNavSettings {
 		disable = $state(false);
 		showCollectionLinks = $state(true);
+		leftSide = $state(true);
 		height = $state(45);
 		font = $state('Bebas Neue');
 	})();
@@ -495,6 +497,7 @@ export class PlannerSettings {
 				colorText: this.design.colorText,
 				colorLines: this.design.colorLines,
 				colorDots: this.design.colorDots,
+				textDirection: this.design.textDirection, 
 			},
 			date: {
 				timezoneOffset: this.date.timezoneOffset,
@@ -512,6 +515,7 @@ export class PlannerSettings {
 			},
 			topNav: {
 				disable: this.topNav.disable,
+				leftSide: this.topNav.leftSide,
 				showCollectionLinks: this.topNav.showCollectionLinks,
 				height: this.topNav.height,
 				font: this.topNav.font,
@@ -587,6 +591,8 @@ export class PlannerSettings {
 			this.design.colorLines = state.design.colorLines;
 		if (state?.design?.colorDots !== undefined)
 			this.design.colorDots = state.design.colorDots;
+		if (state?.design?.textDirection !== undefined) 
+			this.design.textDirection = state.design.textDirection; 
 
 		// Date Settings
 		if (state?.date?.timezoneOffset !== undefined)
@@ -613,6 +619,7 @@ export class PlannerSettings {
 		if (state?.topNav?.disable !== undefined) this.topNav.disable = state.topNav.disable;
 		if (state?.topNav?.showCollectionLinks !== undefined)
 			this.topNav.showCollectionLinks = state.topNav.showCollectionLinks;
+		if (state?.topNav?.leftSide !== undefined) this.topNav.leftSide = state.topNav.leftSide;
 		if (state?.topNav?.height !== undefined) this.topNav.height = state.topNav.height;
 		if (state?.topNav?.font !== undefined) this.topNav.font = state.topNav.font;
 		if (!state?.topNav?.font && state?.design?.fontDisplay)

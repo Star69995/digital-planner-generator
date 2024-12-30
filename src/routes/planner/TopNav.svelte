@@ -72,6 +72,7 @@
 		['Roboto Slab', '-.1em'],
 		['Satisfy', '-.27em'],
 		['Shadows Into Light Two', '-.15em'],
+		['Varela Round', '-.3rem'],
 	]);
 	const navHeightAdjustments = new Map([
 		['Abril Fatface', '-.35rem'],
@@ -89,6 +90,7 @@
 		['Roboto', '-.15rem'],
 		['Roboto Condensed', '-.25rem'],
 		['Roboto Slab', '-.15rem'],
+		['Varela Round', '-.2rem'],
 	]);
 </script>
 
@@ -96,12 +98,15 @@
 	<nav
 		style:font-family="'{font}'"
 		style:font-size="{getFontInfo(font)?.size || 1}rem"
+		class:right={!settings.topNav.leftSide}
 		style:height={navHeightAdjustments.get(font)
 			? `calc(var(--topnav-height) + ${navHeightAdjustments.get(font)})`
 			: ''}>
+		
 		<ol class="breadcrumbs">
 			<li>
-				<a href="#home" class="home">
+				<a href="#home" class="home"
+				class:right={!settings.topNav.leftSide}>
 					<HomeIcon
 						width="1.35rem"
 						height="1.35rem"
@@ -198,6 +203,11 @@
 		right: 0;
 		height: var(--topnav-height);
 		padding: 0 0 0 var(--sidenav-width);
+		&.right {
+			left: auto;
+			right: 0;
+			direction: rtl;
+		}
 		ol.links {
 			list-style: none;
 			list-style: none;
@@ -254,7 +264,12 @@
 				&:first-child {
 					a {
 						padding-left: 1rem;
+						&.right {
+							padding-right: 1rem;
+							padding-left: 0;
+						}
 					}
+					
 				}
 				&:last-child {
 					a {

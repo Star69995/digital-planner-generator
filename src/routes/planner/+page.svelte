@@ -85,6 +85,19 @@
 		});
 	}
 
+	function onRTLChange(event: Event) {
+        const target = event.target as HTMLInputElement;
+        const isChecked = target.checked;
+
+        // Update the settings based on the RTL checkbox state
+        settings.sideNav.leftSide = !isChecked;
+        settings.topNav.leftSide = !isChecked;
+        settings.design.textDirection = isChecked ? 'rtl' : 'ltr'; // Assuming you have a textDirection settings
+
+		const plannerArea = document.querySelector('main');
+		plannerArea.style.direction = isChecked ? 'rtl' : 'ltr';
+    }
+
 	let customTimeframe = $state(false);
 	let showHelp = $state($page.url.searchParams.get('help') !== '0');
 	let showMenu = $state(true);
@@ -267,6 +280,15 @@
 					id="enableHighResolution" />
 				<label for="enableHighResolution">Print in high resolution (bigger file)</label>
 			</div>
+			<div class="checkbox">
+				<input
+					type="checkbox"
+        			id="makeRTL"
+        			on:change={onRTLChange} 
+					checked={settings.design.textDirection === 'rtl'} />
+				<label for="makeRTL">Right-to-Left</label>
+			</div>
+
 
 			{#if showAdvancedSettings}
 				<h3>Cover Page</h3>
@@ -633,6 +655,13 @@
 					<div class="checkbox">
 						<input
 							type="checkbox"
+							bind:checked={settings.topNav.leftSide}
+							id="topNavLeftSide" />
+						<label for="topNavLeftSide">Show Topbar on Left</label>
+					</div>
+					<div class="checkbox">
+						<input
+							type="checkbox"
 							bind:checked={settings.topNav.showCollectionLinks}
 							id="topNavShowCollectionLinks" />
 						<label for="topNavShowCollectionLinks">Show Links to Collections</label>
@@ -804,6 +833,7 @@
 <Toast />
 
 <main
+	style:--text-direction="{settings.design.textDirection}"
 	style:--doc-width="{702}px"
 	style:--doc-height="{702 * (1 / (settings.design.aspectRatio || 1))}px"
 	style:--sidenav-width="{settings.sideNav.disable ? 0 : settings.sideNav.width}px"
@@ -819,6 +849,7 @@
 	style:font-size="{font.size}rem"
 	class:side-nav-right={!settings.sideNav.leftSide}
 	class:high-res={enableHighResolution}>
+	
 	<div id="home"></div>
 	{#if !loadPages}
 		<article
