@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { replaceState } from '$app/navigation';
 	import { slide } from 'svelte/transition';
@@ -51,6 +52,11 @@
 		{ name: 'Habit Checkboxes - Grouped by Month', value: 'habit-year-by-month' },
 	];
 
+	onMount(() => {
+        const plannerArea = document.querySelector('main');
+        plannerArea.style.direction = settings.design.textDirection ? 'rtl' : 'ltr';
+    });
+	
 	const font = $derived(fonts.find((f) => f.name === settings.design.font) ?? fonts[0]);
 	const googleFontURL = $derived(
 		getGoogleFontURL([
@@ -90,6 +96,7 @@
         const isChecked = target.checked;
 
         // Update the settings based on the RTL checkbox state
+		isRtl = isChecked;
         settings.sideNav.leftSide = !isChecked;
         settings.topNav.leftSide = !isChecked;
         settings.design.textDirection = isChecked ? 'rtl' : 'ltr'; // Assuming you have a textDirection settings
@@ -103,6 +110,13 @@
 	let showMenu = $state(true);
 	let showAdvancedSettings = $state(false);
 	let enableHighResolution = $state($page.url.searchParams.has('highres'));
+	let isRtl = $state(settings.design.textDirection === 'rtl');
+
+	
+	
+
+
+
 	let loadPages = $state(
 		$page.url.searchParams.get('help') === '0' &&
 			(browser || $page.url.searchParams.get('load') === '1'),
@@ -284,9 +298,9 @@
 				<input
 					type="checkbox"
         			id="makeRTL"
-        			on:change={onRTLChange} 
-					checked={settings.design.textDirection === 'rtl'} />
-				<label for="makeRTL">Right-to-Left</label>
+					bind:checked={isRtl}
+        			on:change={onRTLChange} />
+				<label for="makeRTL">Right-to-Left and fit for Hebrew</label>
 			</div>
 
 
